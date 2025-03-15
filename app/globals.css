@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+    --color-primary: var(--theme-color-primary);
+}
+
+@layer base {
+    :root {
+        --theme-color-primary: #ffffff;
+        color: var(--color-primary);
+    }
+}
 
 .background-grainy {
     background-image: url('/background.jpg');

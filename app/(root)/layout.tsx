@@ -3,9 +3,9 @@ import Header from '@/components/Header'
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <main className="background-grainy grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 sm:p-10">
+    <main className="background-grainy min-h-screen p-8 sm:p-10">
       <Header />
-      <div className="m-10">{children}</div>
+      <div className="mt-20 pb-20">{children}</div>
     </main>
   )
 }
