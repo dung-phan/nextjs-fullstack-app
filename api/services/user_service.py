@@ -9,7 +9,6 @@ def create_user(data: dict) -> User:
         email=data["email"],
         university_id=data["university_id"],
         role=UserRole.USER,
-
     )
 
     user.set_password(data["password"])
@@ -19,5 +18,6 @@ def create_user(data: dict) -> User:
     with db.session() as session:
         session.add(user)
         session.commit()
+        session.refresh(user)
 
     return user
