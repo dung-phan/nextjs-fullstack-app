@@ -7,7 +7,7 @@ export default async function Home () {
   const { books } = (await data.json()) ?? []
   return (
     <>
-      <BookOverview />
+      <BookOverview {...books[0]} />
       <div className="mt-28">
         <BookList books={books} />
       </div>
