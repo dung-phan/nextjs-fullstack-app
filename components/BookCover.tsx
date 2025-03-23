@@ -1,7 +1,8 @@
 import Image from 'next/image'
+import { components } from '@/src/api/types'
 
 type Props = {
-  cover: string;
+  cover: components['schemas']['Book']['cover'];
   variant: 'small' | 'medium' | 'regular' | 'large';
 };
 
@@ -17,7 +18,7 @@ const BookCover = ({ cover, variant }: Props) => {
   return (
     <div className={`relative ${VariantStyles[variant]}`}>
       <div className="absolute z-10" style={{ width: '87.5%', height: '88%' }}>
-        <Image src={cover} alt="Book cover" fill />
+        {cover ? <Image src={cover} alt="Book cover" fill /> : null}
       </div>
     </div>
   )

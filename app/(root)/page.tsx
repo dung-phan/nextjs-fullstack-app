@@ -1,10 +1,11 @@
 import BookOverview from '@/components/BookOverview'
 import BookList from '@/components/BookList'
+import camelcaseKeys from 'camelcase-keys'
 
 export default async function Home () {
-  const data = await fetch('http://localhost:5328/api/books')
+  const data = await fetch('http://localhost:5328/api/books/list')
 
-  const { books } = (await data.json()) ?? []
+  const books = camelcaseKeys(await data.json()) ?? []
   return (
     <>
       <BookOverview {...books[0]} />

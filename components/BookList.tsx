@@ -1,7 +1,8 @@
 import React from 'react'
 import BookCard from '@/components/BookCard'
+import { Book } from '@/types'
 
-const BookList = ({ books }) => {
+const BookList = ({ books }: { books: Book[] }) => {
   return (
     <section>
       <h2 className="text-4xl text-primary uppercase">Popular books</h2>

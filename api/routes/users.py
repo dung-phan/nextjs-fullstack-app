@@ -1,26 +1,28 @@
-from flask import Blueprint, request
+from flask.views import MethodView
+from flask_smorest import Blueprint
 
 from api.models.users import User
 from api.schemas.users import UserSchema
 from api.services.user_service import create_user
 
 user_bp = Blueprint("user", __name__, url_prefix="/api/users")
-users_schema = UserSchema(many=True)
 
 
-@user_bp.route("/list", methods=["GET"])
-def list_users():
-    from api.database import db
-    users = db.session.query(User).all()
-    json_response = users_schema.dump(users)
+@user_bp.route("/list")
+class UserList(MethodView):
+    @user_bp.response(200, UserSchema(many=True))
+    def get(self):
+        from api.database import db
+        users = db.session.query(User).all()
 
-    return {"users": json_response}, 200
+        return users, 200
 
 
-@user_bp.route("/create", methods=["POST"])
-def create():
-    data = request.form
+@user_bp.route("/create")
+class UserCreate(MethodView):
+    @user_bp.arguments(UserSchema)
+    @user_bp.response(201)
+    def post(self, user_data):
+        create_user(user_data)
 
-    create_user(data)
-
-    return {"message": "User created successfully"}, 201
+        return {"message": "User created successfully"}, 201

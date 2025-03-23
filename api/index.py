@@ -1,7 +1,10 @@
+import logging
+
 from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
+from flask_smorest import Api
 
 from api.database import db
 from config import Config
@@ -19,14 +22,16 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
+    api = Api(app)
 
-    app.register_blueprint(books_bp)
-    app.register_blueprint(user_bp)
+    api.register_blueprint(books_bp)
+    api.register_blueprint(user_bp)
 
     return app
 
 
 app = create_app()
+app.logger.setLevel(logging.DEBUG)
 
 if __name__ == "__main__":
     app.run(debug=True)

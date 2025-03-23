@@ -1,17 +1,18 @@
 import { BookOpen, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import BookCover from '@/components/BookCover'
+import { Book } from '@/types'
 
 const BookOverview = async ({
   title,
   author,
   genre,
   rating,
-  total_copies,
-  available_copies,
+  totalCopies,
+  availableCopies,
   description,
   cover
-}) => {
+}: Book) => {
   return (
     <section className="flex flex-col-reverse items-center gap-12 sm:gap-32 md:flex-row">
       <div className="flex flex-1 flex-col gap-5 text-primary">
@@ -33,14 +34,12 @@ const BookOverview = async ({
         <div className="flex gap-10">
           <p>
             Total Books:{' '}
-            <span className="font-semibold text-yellow-300">
-              {total_copies}
-            </span>
+            <span className="font-semibold text-yellow-300">{totalCopies}</span>
           </p>
           <p>
             Available Books:{' '}
             <span className="font-semibold text-yellow-300">
-              {available_copies}
+              {availableCopies}
             </span>
           </p>
         </div>
