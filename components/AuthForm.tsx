@@ -26,12 +26,14 @@ type Props<T extends FieldValues> = {
   schema: ZodType<T>;
   defaultValues: T;
   type: 'SIGN_IN' | 'SIGN_UP';
+  onSubmit: (values: T) => Promise<void>;
 };
 
 const AuthForm = <T extends FieldValues>({
   type,
   schema,
-  defaultValues
+  defaultValues,
+  onSubmit
 }: Props<T>) => {
   const isSignedIn = type === 'SIGN_IN'
   const form: UseFormReturn<T> = useForm({
@@ -39,8 +41,11 @@ const AuthForm = <T extends FieldValues>({
     defaultValues: defaultValues as DefaultValues<T>
   })
 
-  const onSubmit = async (values: z.infer<typeof schema>) => {
-    console.log(values)
+  const handleSubmit = async (values: z.infer<typeof schema>) => {
+    console.log('hello')
+    const result = await onSubmit(values)
+
+    console.log('result', result)
   }
 
   return (
@@ -55,7 +60,7 @@ const AuthForm = <T extends FieldValues>({
       </p>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(handleSubmit)}
           className="space-y-6 w-full"
         >
           {Object.keys(defaultValues).map((fieldName) => {

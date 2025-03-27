@@ -1,3 +1,4 @@
+from flask import request
 from flask.views import MethodView
 from flask_smorest import Blueprint
 
@@ -18,11 +19,11 @@ class UserList(MethodView):
         return users, 200
 
 
-@user_bp.route("/create")
+@user_bp.route("/create", methods=["POST"])
 class UserCreate(MethodView):
     @user_bp.arguments(UserSchema)
     @user_bp.response(201)
-    def post(self, user_data):
-        create_user(user_data)
+    def post(self):
+        create_user(request.get_json())
 
         return {"message": "User created successfully"}, 201

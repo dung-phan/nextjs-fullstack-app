@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { PropsWithChildren } from 'react'
 import localFont from 'next/font/local'
+import { SessionProvider } from 'next-auth/react'
+import { auth } from '@/auth'
 
 const SoDoSans = localFont({
   src: [
@@ -16,10 +18,13 @@ export const metadata: Metadata = {
   description: 'UniBook is a book borrowing university library management.'
 }
 
-export default function RootLayout ({ children }: PropsWithChildren) {
+export default async function RootLayout ({ children }: PropsWithChildren) {
+  const session = await auth()
   return (
     <html lang="en">
-      <body className={`${SoDoSans.className} antialiased`}>{children}</body>
+      <SessionProvider session={session}>
+        <body className={`${SoDoSans.className} antialiased`}>{children}</body>
+      </SessionProvider>
     </html>
   )
 }
