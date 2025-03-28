@@ -19,5 +19,17 @@ def create_user(data):
         session.add(user)
         session.commit()
         session.refresh(user)
+        return user
 
-    return user
+
+def get_user_by_username(username):
+    with db.session() as session:
+        user = session.query(User).filter_by(username=username).first()
+        return user
+
+
+def validate_user(username, password):
+    user = get_user_by_username(username)
+    if user and user.check_password(password):
+        return True
+    return False
