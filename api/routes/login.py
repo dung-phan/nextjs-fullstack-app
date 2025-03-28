@@ -1,16 +1,22 @@
-from flask import Blueprint, jsonify, request
+from flask import request
+from flask.views import MethodView
+from flask_smorest import Blueprint
 
-login_bp = Blueprint("login", __name__, url_prefix="/api/login")
+login_bp = Blueprint("login", __name__, url_prefix="/api/auth")
 
 
-@login_bp.route("/", methods=["POST"])
-def login():
-    data = request.json
-    username = data.get("username")
-    password = data.get("password")
-    remember_me = data.get("remember_me")
+@login_bp.route("/login", methods=["POST"])
+class Login(MethodView):
+    @login_bp.response(201)
+    def post(self):
+        from api.services.user_service import validate_user
 
-    if not username or not password:
-        return jsonify({"error": "Invalid username or password"}), 400
+        username = request.json.get("username")
+        password = request.json.get("password")
 
-    return jsonify({"message": "Successfully logged in"}), 200
+        if validate_user(username, password):
+            return {"message": "Login successful"}, 200
+        else:
+            return {"message": "Invalid credentials"}, 401
+
+#

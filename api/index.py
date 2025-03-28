@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from flask_smorest import Api
 
 from api.database import db
+from api.routes.login import login_bp
 from config import Config
 from routes.books import books_bp
 from routes.users import user_bp
@@ -26,6 +27,7 @@ def create_app():
 
     api.register_blueprint(books_bp)
     api.register_blueprint(user_bp)
+    api.register_blueprint(login_bp)
 
     return app
 
