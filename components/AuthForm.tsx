@@ -26,7 +26,10 @@ type Props<T extends FieldValues> = {
   schema: ZodType<T>;
   defaultValues: T;
   type: 'SIGN_IN' | 'SIGN_UP';
-  onSubmit: (values: T) => Promise<void>;
+  onSubmit: (values: T) => Promise<{
+    success: boolean;
+    message?: string;
+  }>;
 };
 
 const AuthForm = <T extends FieldValues>({

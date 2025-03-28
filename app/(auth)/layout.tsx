@@ -1,7 +1,13 @@
 import React, { PropsWithChildren } from 'react'
 import Image from 'next/image'
+import { auth } from '@/auth'
+import { redirect } from 'next/navigation'
 
-const Layout = ({ children }: PropsWithChildren) => {
+const Layout = async ({ children }: PropsWithChildren) => {
+  const session = await auth()
+
+  if (session?.user?.id) redirect('/')
+
   return (
     <main className="relative flex flex-col-reverse text-light-100 sm:flex-row">
       <div className="absolute inset-0 background-grainy backdrop-blur-xl"></div>

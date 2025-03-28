@@ -9,17 +9,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       async authorize (credentials) {
-        if (!credentials?.email || !credentials.password) {
-          return null
-        }
+        const response = await fetch('http://localhost:5328/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: credentials?.username,
+            password: credentials?.password
+          })
+        })
 
-        const { user } = await fetch('http://localhost:5328/api/auth/login')
-        return { ...user, email: user.email }
+        return await response.json()
       }
     })
   ],
   pages: {
-    signIn: '/auth/sign-in'
+    signIn: '/sign-in'
   },
   callbacks: {
     async jwt ({ token, user }) {
