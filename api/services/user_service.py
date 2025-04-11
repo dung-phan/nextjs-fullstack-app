@@ -31,5 +31,9 @@ def get_user_by_username(username):
 def validate_user(username, password):
     user = get_user_by_username(username)
     if user and user.check_password(password):
-        return True
-    return False
+        return {
+            'id': user.id,
+            'name': user.full_name,
+            'email': user.email,
+        }
+    return None
