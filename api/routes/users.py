@@ -15,6 +15,7 @@ class UserList(MethodView):
     @user_bp.response(200, UserSchema(many=True))
     def get(self):
         from api.database import db
+
         users = db.session.query(User).all()
 
         return users, 200

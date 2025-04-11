@@ -7,9 +7,13 @@ from api.database import db
 
 
 class Book(db.Model):
-    id: so.Mapped[uuid.UUID] = so.mapped_column(sa.UUID, primary_key=True, default=uuid.uuid4)
+    id: so.Mapped[uuid.UUID] = so.mapped_column(
+        sa.UUID, primary_key=True, default=uuid.uuid4
+    )
     title: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, nullable=False)
-    author: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, nullable=False)
+    author: so.Mapped[str] = so.mapped_column(
+        sa.String(120), index=True, nullable=False
+    )
     genre: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     rating: so.Mapped[float] = so.mapped_column(sa.Float, nullable=False)
     total_copies: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)

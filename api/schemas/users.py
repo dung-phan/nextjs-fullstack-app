@@ -12,6 +12,7 @@ class UserSchema(SQLAlchemyAutoSchema):
         exclude = ("password_hash",)
         sqla_session = db.session
 
-    role = fields.Enum(UserRole,
-                       by_value=True)  # overrides the auto-generated field, ensures enum is serialized as value
+    role = fields.Enum(
+        UserRole, by_value=True
+    )  # overrides the auto-generated field, ensures enum is serialized as value
     password = fields.String(load_only=True, required=True)
