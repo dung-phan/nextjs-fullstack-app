@@ -1,0 +1,11 @@
+api
+migrations
+venv
+requirements.txt
+
+.next
+
+
+
+node_modules
+pnpm-lock.yaml
