@@ -4,6 +4,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as so
 
 from api.database import db
+from api.models.recommenders import Recommender
 
 
 class Book(db.Model):
@@ -25,4 +26,12 @@ class Book(db.Model):
     )
     updated_at: so.Mapped[sa.DateTime] = so.mapped_column(
         sa.DateTime, server_default=sa.func.now(), onupdate=sa.func.now()
+    )
+
+    # Relationships
+    recommended_by_id: so.Mapped[int] = so.mapped_column(
+        sa.ForeignKey("recommender.id"), nullable=True
+    )
+    recommended_by: so.Mapped["Recommender"] = so.relationship(
+        "Recommender", back_populates="books"
     )
