@@ -7,12 +7,11 @@ def add_book(data):
         title=data.title,
         author=data.author,
         genre=data.genre,
-        rating=data.rating,
-        total_copies=data.total_copies,
-        available_copies=data.available_copies,
         description=data.description,
-        summary=data.summary,
-        is_loaned=False,
+        publisher=data.publisher,
+        published_date=data.published_date,
+        cover=data.cover,
+        ISBN=data.ISBN,
     )
 
     with db.session() as session:

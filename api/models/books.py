@@ -15,17 +15,14 @@ class Book(db.Model):
         sa.String(120), index=True, nullable=False
     )
     genre: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
-    rating: so.Mapped[float] = so.mapped_column(sa.Float, nullable=False)
-    total_copies: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
-    available_copies: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     description: so.Mapped[str] = so.mapped_column(sa.Text, nullable=False)
     cover: so.Mapped[str] = so.mapped_column(sa.String(260), nullable=True)
-    video: so.Mapped[str] = so.mapped_column(sa.String(260), nullable=True)
-    summary: so.Mapped[str] = so.mapped_column(sa.Text, nullable=False)
-    is_loaned: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=False)
-
-    __table_args__ = (
-        sa.CheckConstraint("rating >= 0 AND rating <= 5", name="check_rating_range"),
-        sa.CheckConstraint("total_copies >= 0", name="check_total_copies"),
-        sa.CheckConstraint("available_copies >= 0", name="check_available_copies"),
+    published_date: so.Mapped[sa.DateTime] = so.mapped_column(sa.DateTime, index=True)
+    publisher: so.Mapped[str] = so.mapped_column(sa.String(100), nullable=False)
+    ISBN: so.Mapped[str] = so.mapped_column(sa.String(20), unique=True, nullable=False)
+    created_at: so.Mapped[sa.DateTime] = so.mapped_column(
+        sa.DateTime, server_default=sa.func.now()
+    )
+    updated_at: so.Mapped[sa.DateTime] = so.mapped_column(
+        sa.DateTime, server_default=sa.func.now(), onupdate=sa.func.now()
     )
