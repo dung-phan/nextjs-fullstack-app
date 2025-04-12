@@ -169,8 +169,8 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Created */
-                201: {
+                /** @description OK */
+                200: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -218,12 +218,15 @@ export interface components {
             title: string;
             author: string;
             genre: string;
-            rating: number;
-            total_copies: number;
-            available_copies: number;
             description: string;
-            summary: string;
-            is_loaned: boolean;
+            /** Format: date-time */
+            published_date: string;
+            publisher: string;
+            ISBN: string;
+            /** Format: date-time */
+            created_at?: string;
+            /** Format: date-time */
+            updated_at?: string;
         };
         User: {
             /** @enum {unknown} */

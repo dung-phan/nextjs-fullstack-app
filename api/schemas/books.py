@@ -12,4 +12,3 @@ class BookSchema(SQLAlchemyAutoSchema):
         sqla_session = db.session
 
     cover = fields.String(required=False, allow_none=True)
-    video = fields.String(required=False, allow_none=True)
