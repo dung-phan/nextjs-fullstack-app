@@ -1,13 +1,18 @@
 import uuid
+from typing import ForwardRef
 
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 
 from api.database import db
-from api.models.recommenders import Recommender
+from api.models import BookRecommender
+
+RecommenderRef = ForwardRef("Recommender")
 
 
 class Book(db.Model):
+    __tablename__ = "books"
+
     id: so.Mapped[uuid.UUID] = so.mapped_column(
         sa.UUID, primary_key=True, default=uuid.uuid4
     )
@@ -28,10 +33,7 @@ class Book(db.Model):
         sa.DateTime, server_default=sa.func.now(), onupdate=sa.func.now()
     )
 
-    # Relationships
-    recommended_by_id: so.Mapped[int] = so.mapped_column(
-        sa.ForeignKey("recommender.id"), nullable=True
-    )
-    recommended_by: so.Mapped["Recommender"] = so.relationship(
-        "Recommender", back_populates="books"
+    recommendations: so.Mapped[list[BookRecommender]] = so.relationship(
+        back_populates="book",
+        cascade="all, delete-orphan",
     )

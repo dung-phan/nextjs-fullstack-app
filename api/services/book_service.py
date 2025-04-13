@@ -1,5 +1,5 @@
 from api.database import db
-from api.models.books import Book
+from api.models import Recommender, Book, BookRecommender
 
 
 def add_book(data):
@@ -12,12 +12,25 @@ def add_book(data):
         published_date=data.published_date,
         cover=data.cover,
         ISBN=data.ISBN,
-        recommended_by_id=data.recommended_by_id,
     )
 
-    with db.session() as session:
-        session.add(book)
-        session.commit()
-        session.refresh(book)
+    db.session.add(book)
 
+    if hasattr(data, "recommendations"):
+        for recommendation_data in data.recommendations:
+            recommender = Recommender.query.get(recommendation_data.recommender_id)
+
+            if not recommender:
+                raise ValueError(
+                    f"Recommender with ID {recommendation_data.recommender_id} not found."
+                )
+
+            book_recommender = BookRecommender(
+                book=book,
+                recommender=recommender,
+                url=recommendation_data.url,
+            )
+            db.session.add(book_recommender)
+
+    db.session.commit()
     return book
