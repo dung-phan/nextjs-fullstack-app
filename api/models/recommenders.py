@@ -1,4 +1,5 @@
 import enum
+from typing import ForwardRef
 
 import sqlalchemy as sa
 import sqlalchemy.orm as so
@@ -27,6 +28,6 @@ class Recommender(db.Model):
         sa.Enum(RecommenderType), nullable=False
     )
 
-    books: so.Mapped[list["Book"]] = so.relationship(
-        "Book", back_populates="recommended_by", lazy="select"
+    books: so.Mapped[list[ForwardRef("Book")]] = so.relationship(
+        "Book", back_populates="recommended_by"
     )

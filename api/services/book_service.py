@@ -12,6 +12,7 @@ def add_book(data):
         published_date=data.published_date,
         cover=data.cover,
         ISBN=data.ISBN,
+        recommended_by_id=data.recommended_by_id,
     )
 
     with db.session() as session:
