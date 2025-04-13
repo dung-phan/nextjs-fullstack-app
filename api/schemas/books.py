@@ -15,6 +15,4 @@ class BookSchema(SQLAlchemyAutoSchema):
         sqla_session = db.session
 
     cover = fields.String(required=False, allow_none=True)
-    recommendations = fields.List(
-        fields.Nested(BookRecommenderSchema), load_only=True
-    )
+    recommendations = fields.List(fields.Nested(BookRecommenderSchema), load_only=True)
