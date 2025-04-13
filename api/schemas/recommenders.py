@@ -13,4 +13,4 @@ class RecommenderSchema(SQLAlchemyAutoSchema):
 
     recommender_type = fields.Enum(RecommenderType, by_value=True)
 
-    books = fields.List(fields.Nested('BookSchema'), dump_only=True)
+    books = fields.List(fields.Nested("BookSchema"), dump_only=True)

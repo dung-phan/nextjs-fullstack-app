@@ -13,6 +13,9 @@ class RecommenderType(enum.Enum):
     ORGANISATION = "organisation"
 
 
+BookRef = ForwardRef("Book")
+
+
 class Recommender(db.Model):
     id: so.Mapped[int] = so.mapped_column(sa.Integer, primary_key=True)
     name: so.Mapped[str] = so.mapped_column(sa.String(100), nullable=False)
@@ -28,6 +31,6 @@ class Recommender(db.Model):
         sa.Enum(RecommenderType), nullable=False
     )
 
-    books: so.Mapped[list[ForwardRef("Book")]] = so.relationship(
+    books: so.Mapped[list[BookRef]] = so.relationship(
         "Book", back_populates="recommended_by"
     )
