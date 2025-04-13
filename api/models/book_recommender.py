@@ -25,5 +25,5 @@ class BookRecommender(db.Model):
     updated_at: so.Mapped[sa.DateTime] = so.mapped_column(
         sa.DateTime, server_default=sa.func.now(), onupdate=sa.func.now()
     )
-    book: so.Mapped["Book"] = so.relationship(back_populates="recommendations")
-    recommender: so.Mapped["Recommender"] = so.relationship("Recommender")
+    book: so.Mapped["Book"] = so.relationship(back_populates="recommendations")  # noqa F821
+    recommender: so.Mapped["Recommender"] = so.relationship("Recommender")  # noqa F821

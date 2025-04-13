@@ -17,4 +17,4 @@ class BookSchema(SQLAlchemyAutoSchema):
     cover = fields.String(required=False, allow_none=True)
     recommendations = fields.List(
         fields.Nested(BookRecommenderSchema), load_only=True
-    )  # For handling the incoming data
+    )

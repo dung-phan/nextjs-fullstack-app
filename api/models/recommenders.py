@@ -7,6 +7,7 @@ import sqlalchemy.orm as so
 from sqlalchemy.dialects import postgresql
 
 from api.database import db
+from api.models import BookRecommender
 
 
 class RecommenderType(enum.Enum):
