@@ -1,5 +1,6 @@
 from api.database import db
-from api.models import Recommender, Book, BookRecommender
+from api.models import Book, BookRecommender
+from api.services.recommender_service import get_recommender_by_id
 
 
 def add_book(data):
@@ -18,12 +19,7 @@ def add_book(data):
 
     if hasattr(data, "recommendations"):
         for recommendation_data in data.recommendations:
-            recommender = Recommender.query.get(recommendation_data.recommender_id)
-
-            if not recommender:
-                raise ValueError(
-                    f"Recommender with ID {recommendation_data.recommender_id} not found."
-                )
+            recommender = get_recommender_by_id(recommendation_data["recommender_id"])
 
             book_recommender = BookRecommender(
                 book=book,

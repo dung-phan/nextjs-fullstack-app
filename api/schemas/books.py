@@ -11,7 +11,6 @@ class BookSchema(SQLAlchemyAutoSchema):
         model = Book
         load_instance = True
         include_relationships = True
-
         sqla_session = db.session
 
     cover = fields.String(required=False, allow_none=True)
