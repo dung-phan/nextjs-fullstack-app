@@ -4,7 +4,9 @@ from flask_smorest import Blueprint
 
 from api.database import db
 from api.models.books import Book
+from api.schemas.book_recommender import BookRecommenderSchema
 from api.schemas.books import BookSchema
+from api.services.book_service import add_book, get_book_recommendations
 
 books_bp = Blueprint("books", __name__, url_prefix="/api/books")
 
@@ -22,7 +24,6 @@ class BooksAdd(MethodView):
     @books_bp.arguments(BookSchema)
     @books_bp.response(201, BookSchema)
     def post(self, book_data):
-        from api.services.book_service import add_book
 
         existing_book = db.session.query(Book).filter_by(ISBN=book_data.ISBN).first()
 
@@ -31,3 +32,13 @@ class BooksAdd(MethodView):
         else:
             book = add_book(book_data)
             return book, 201
+
+
+@books_bp.route("/<string:book_id>/recommendations")
+class BooksRecommendations(MethodView):
+    @books_bp.response(200)
+    def get(self, book_id):
+        recommendations = get_book_recommendations(book_id)
+
+        schema = BookRecommenderSchema(many=True)
+        return schema.dump(recommendations), 200

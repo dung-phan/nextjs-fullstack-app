@@ -30,3 +30,11 @@ def add_book(data):
 
     db.session.commit()
     return book
+
+
+def get_book_recommendations(book_id: str):
+    book_recommendations = (
+        db.session.query(BookRecommender).filter_by(book_id=book_id).all()
+    )
+
+    return book_recommendations
