@@ -1,6 +1,5 @@
 import enum
 import uuid
-from typing import ForwardRef
 
 import sqlalchemy as sa
 import sqlalchemy.orm as so
@@ -14,9 +13,6 @@ class RecommenderType(enum.Enum):
     INDIVIDUAL = "individual"
     NEWSPAPER = "newspaper"
     ORGANISATION = "organisation"
-
-
-BookRef = ForwardRef("Book")
 
 
 class Recommender(db.Model):
