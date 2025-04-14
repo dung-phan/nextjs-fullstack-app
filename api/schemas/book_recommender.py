@@ -12,4 +12,5 @@ class BookRecommenderSchema(SQLAlchemyAutoSchema):
         sqla_session = db.session
 
     recommender_id = auto_field()
+    book_id = auto_field()
     url = fields.String(required=False)

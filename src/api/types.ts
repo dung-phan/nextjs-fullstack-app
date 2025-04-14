@@ -210,13 +210,12 @@ export interface components {
             previous_page?: number;
             next_page?: number;
         };
-        Recommender: {
-            /** @enum {unknown} */
-            recommender_type?: "individual" | "newspaper" | "organisation";
-            readonly books?: components["schemas"]["Book"][];
-            id?: number;
-            name: string;
-            url: string;
+        BookRecommender: {
+            /** Format: uuid */
+            recommender_id: string;
+            /** Format: uuid */
+            book_id: string;
+            url?: string;
             /** Format: date-time */
             created_at?: string;
             /** Format: date-time */
@@ -224,8 +223,7 @@ export interface components {
         };
         Book: {
             cover?: string | null;
-            readonly recommended_by?: components["schemas"]["Recommender"];
-            recommended_by_id?: number | null;
+            recommendations?: components["schemas"]["BookRecommender"][];
             /** Format: uuid */
             id?: string;
             title: string;

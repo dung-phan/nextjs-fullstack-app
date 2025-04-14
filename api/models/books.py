@@ -30,7 +30,7 @@ class Book(db.Model):
         sa.DateTime, server_default=sa.func.now(), onupdate=sa.func.now()
     )
 
-    recommendations: so.Mapped[list['BookRecommender']] = so.relationship(
+    recommendations: so.Mapped[list["BookRecommender"]] = so.relationship(
         back_populates="book",
         cascade="all, delete-orphan",
     )
