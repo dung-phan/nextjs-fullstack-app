@@ -36,9 +36,18 @@ class BooksAdd(MethodView):
 
 @books_bp.route("/<string:book_id>/recommendations")
 class BooksRecommendations(MethodView):
-    @books_bp.response(200)
+    @books_bp.response(200, BookRecommenderSchema(many=True))
     def get(self, book_id):
         recommendations = get_book_recommendations(book_id)
-
         schema = BookRecommenderSchema(many=True)
+
         return schema.dump(recommendations), 200
+
+
+@books_bp.route("/genre/<string:genre>")
+class BooksGenre(MethodView):
+    @books_bp.response(200, BookSchema(many=True))
+    def get(self, genre):
+        books = db.session.query(Book).filter_by(genre=genre).all()
+
+        return books, 200
