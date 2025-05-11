@@ -1,16 +1,13 @@
 import React, { PropsWithChildren } from 'react'
 import Header from '@/components/Header'
-import { auth } from '@/auth'
-import { redirect } from 'next/navigation'
 
 const Layout = async ({ children }: PropsWithChildren) => {
-	const session = await auth()
-	if (!session?.user?.id) redirect('/auth/sign-in')
-
 	return (
-		<main className='background-grainy min-h-screen p-8 sm:p-10'>
+		<main className='relative min-h-screen p-8 sm:px-10 bg-[#fefefe]'>
 			<Header />
-			<div className='mt-20 pb-20'>{children}</div>
+			<div className='bg-[repeating-linear-gradient(to_bottom,_#fff_0px,_#fff_34px,_#ccc_35px)] leading-[35px] p-10'>
+				{children}
+			</div>
 		</main>
 	)
 }

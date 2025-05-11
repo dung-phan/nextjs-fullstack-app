@@ -6,13 +6,11 @@
 
 @layer base {
     :root {
-        --theme-color-primary: #ffffff;
-        color: var(--color-primary);
-    }
-}
+        --theme-color-primary: #F4BF3C;
 
-.background-grainy {
-    background-image: url('/background.jpg');
-    background-position: center;
-    background-size: cover;
+    }
+
+    p {
+        @apply text-sm leading-[inherit]
+    }
 }

@@ -1,4 +1,4 @@
-import { BookOpen, Star } from 'lucide-react'
+import { BookOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import BookCover from '@/components/BookCover'
 import { Book } from '@/types'
@@ -7,9 +7,6 @@ const BookOverview = async ({
 	title,
 	author,
 	genre,
-	rating,
-	totalCopies,
-	availableCopies,
 	description,
 	cover
 }: Book) => {
@@ -25,22 +22,6 @@ const BookOverview = async ({
 					<p>
 						Category{' '}
 						<span className='font-semibold text-yellow-200'>{genre}</span>
-					</p>
-				</div>
-				<div className='flex flex-row gap-1'>
-					<Star size={20} />
-					{rating}
-				</div>
-				<div className='flex gap-10'>
-					<p>
-						Total Books:{' '}
-						<span className='font-semibold text-yellow-300'>{totalCopies}</span>
-					</p>
-					<p>
-						Available Books:{' '}
-						<span className='font-semibold text-yellow-300'>
-							{availableCopies}
-						</span>
 					</p>
 				</div>
 				<p className='pt-5 text-green-800'>{description}</p>
