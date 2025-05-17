@@ -8,7 +8,7 @@ export default async function Home() {
 	const books = camelcaseKeys(await data.json()) ?? []
 	return (
 		<>
-			<BookOverview {...books[0]} />
+			<BookOverview {...books?.at(-1)} />
 			<div className='mt-28'>
 				<BookList books={books} />
 			</div>
